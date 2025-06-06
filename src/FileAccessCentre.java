@@ -11,23 +11,22 @@ public class FileAccessCentre {
 		for(int i=0;i<currentSelection.length()-1;i++) {
 			if(( currentSelection.charAt(i)==' ' && currentSelection.charAt(i+1)==',') || currentSelection.charAt(i)==',') {
 				if(accumulator.length()!=0) {
-					newWords.add(accumulator);
+					if(words.contains(accumulator)) {
+						count++;
+					}
 					accumulator="";
 				}
 			}
 			if((currentSelection.charAt(i)==' ' && currentSelection.charAt(i+1)!=' ') || currentSelection.charAt(i)!=',')
 			accumulator+=currentSelection.charAt(i);
 			if(accumulator.length()!=0) {
-				newWords.add(accumulator);
-			}
-			for(int i1=0;i1<newWords.size();i1++) {
-				if(words.contains(newWords.get(i))) {
+				if(words.contains(accumulator)) {
 					count++;
 				}
 			}
 		}
 	}
-	static void fileAccess(ArrayList<String> words) {
+	static void fileAccess(ArrayList<String> words) {//resume as a text file
 		String filePath=InputCentre.stringGetter();
 		try(Scanner read=new Scanner(new File(filePath))){
 			while(read.hasNext()) {
